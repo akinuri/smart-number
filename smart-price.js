@@ -21,7 +21,7 @@ class SmartPrice {
         if (type == "amount") {
             this.sn.add(value, "raise");
         }
-        else if (type == "percent") {
+        else if (type == "percentage") {
             this.sn.mult((100 + value) / 100, "raise");
         }
     }
@@ -30,7 +30,7 @@ class SmartPrice {
         if (type == "amount") {
             this.sn.sub(value, "discount");
         }
-        else if (type == "percent") {
+        else if (type == "percentage") {
             this.sn.div(100 / (100 - value), "discount");
         }
     }

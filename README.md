@@ -25,7 +25,7 @@ A simple price calculation:
 sp = new SmartPrice();
 sp.unit(1000);
 sp.raise(200);
-sp.discount(10, "percent");
+sp.discount(10, "percentage");
 sp.quantity(2);
 sp.tax(18);
 console.log("total", sp.getTotal()); // 2548.7999
@@ -59,7 +59,7 @@ One can also do the calculations backwards, that is the end result is known, but
 sp = new SmartPrice();
 sp.unit(null);
 sp.raise(200);
-sp.discount(10, "percent");
+sp.discount(10, "percentage");
 sp.quantity(2);
 sp.tax(18);
 sp.setResult(2100);
@@ -68,7 +68,7 @@ console.log("unit", sp.getResult("unit")); // 788.7005
 
 Now, one can get the result and change of any arbitrary step/operation.
 
-Using the `SmartNumber` , one can write other solutions like `SmartPrice`.
+Using the `SmartNumber`, one can write other solutions like `SmartPrice`.
 
 ## How it works?
 

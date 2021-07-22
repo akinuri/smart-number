@@ -16,7 +16,7 @@
     ) {
         sp = new SmartPrice();
         sp.unit(1250);
-        sp.discount(10, "percent");
+        sp.discount(10, "percentage");
         sp.tax(18);
         console.log("total", sp.getTotal()); // 1327.5
     }
@@ -28,8 +28,8 @@
     ) {
         sp = new SmartPrice();
         sp.unit(1250);
-        sp.raise(20, "percent");
-        sp.discount(10, "percent");
+        sp.raise(20, "percentage");
+        sp.discount(10, "percentage");
         sp.tax(18);
         console.log("total", sp.getTotal()); // 1593
     }
@@ -41,7 +41,7 @@
     ) {
         sp = new SmartPrice();
         sp.unit(null);
-        sp.discount(10, "percent");
+        sp.discount(10, "percentage");
         sp.setResult(1500);
         sp.tax(18);
         console.log("total", sp.getTotal()); // 1770
@@ -54,8 +54,8 @@
     ) {
         sp = new SmartPrice();
         sp.unit(null);
-        sp.raise(20, "percent");
-        sp.discount(10, "percent");
+        sp.raise(20, "percentage");
+        sp.discount(10, "percentage");
         sp.tax(18);
         sp.quantity(2);
         sp.setResult(2400);
