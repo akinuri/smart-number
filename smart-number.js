@@ -10,6 +10,9 @@ class SmartNumber {
     ];
     
     
+    /**
+     * Alias is the user-provided name for the operation.
+     */
     constructor(value = null, alias = "initial") {
         if (value) {
             this.add(value, alias);
@@ -19,23 +22,7 @@ class SmartNumber {
     
     // #region ==================== VALIDATION
     
-    // TODO: remove?
-    validateOperation() {
-        let errorStack = new Error().stack.split(/\n/);
-        let callerMethod = errorStack[2].match(/at SmartNumber\.(.+) \(/)[1] ?? null;
-        if (this.#operations.length == 0) {
-            if (!["add", "sub"].includes(callerMethod)) {
-                throw new Error(
-                    [
-                        `The operation "${callerMethod}" is not valid.`,
-                        `The first operation should be "add" or "sub".`
-                    ].join(" "),
-                );
-            }
-        }
-    }
-    
-    validateAlias(alias = null) {
+    #validateAlias(alias = null) {
         if (alias) {
             let aliasIsFound = false;
             let aliasHasChanged = false;
@@ -55,7 +42,7 @@ class SmartNumber {
             if (aliasIsFound && aliasHasChanged) {
                 throw new Error(
                     [`The alias "${alias}" is not valid.`,
-                     `It has been used before.`
+                     `It has been used before.`,
                     ].join(" "),
                 );
             }
@@ -67,28 +54,31 @@ class SmartNumber {
     
     // #region ==================== OPERATIONS
     
-    add(amount, alias = null) {
-        // this.validateOperation();
-        this.validateAlias(alias);
-        this.#operations.push( [alias, "add", amount] );
+    #registerOperation(alias, operation, value) {
+        this.#validateAlias(alias);
+        this.#operations.push( [alias, operation, value] );
     }
     
-    sub(amount, alias = null) {
-        // this.validateOperation();
-        this.validateAlias(alias);
-        this.#operations.push( [alias, "sub", amount] );
+    static getFunctionName() {
+        let stack = new Error().stack.split(/\n/);
+        let callerMethod = stack[2].match(/at (?:\w+\.)*?([^.]+) \(/)[1] ?? null;
+        return callerMethod;
     }
     
-    mult(factor, alias = null) {
-        // this.validateOperation();
-        this.validateAlias(alias);
-        this.#operations.push( [alias, "mult", factor] );
+    add(value, alias = null) {
+        this.#registerOperation(alias, SmartNumber.getFunctionName(), value);
     }
     
-    div(factor, alias = null) {
-        // this.validateOperation();
-        this.validateAlias(alias);
-        this.#operations.push( [alias, "div", factor] );
+    sub(value, alias = null) {
+        this.#registerOperation(alias, SmartNumber.getFunctionName(), value);
+    }
+    
+    mult(value, alias = null) {
+        this.#registerOperation(alias, SmartNumber.getFunctionName(), value);
+    }
+    
+    div(value, alias = null) {
+        this.#registerOperation(alias, SmartNumber.getFunctionName(), value);
     }
     
     getOperations() {
@@ -142,20 +132,21 @@ class SmartNumber {
         let operations = this.#operations.slice();
         operations = operations.reverse();
         let calcResult = result;
-        operations.forEach((op, i) => {
-            let [alias, opName, value] = op;
-            if (value === null) {
+        for (let i = 0; i < operations.length; i++) {
+            let [_, opName, opValue] = operations[i];
+            if (opValue === null) {
                 let reverseIndex = (operations.length - 1) - i;
                 this.#operations[reverseIndex][2] = calcResult;
+                break;
             } else {
                 switch (opName) {
-                    case "add":  calcResult -= value; break;
-                    case "sub":  calcResult += value; break;
-                    case "mult": calcResult /= value; break;
-                    case "div":  calcResult *= value; break;
+                    case "add":  calcResult -= opValue; break;
+                    case "sub":  calcResult += opValue; break;
+                    case "mult": calcResult /= opValue; break;
+                    case "div":  calcResult *= opValue; break;
                 }
             }
-        });
+        }
     }
     
     //#endregion

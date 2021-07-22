@@ -14,33 +14,33 @@ class SmartPrice {
     // #region ==================== OPERATIONS
     
     unit(value) {
-        this.sn.add(value, "unit");
+        this.sn.add(value, SmartNumber.getFunctionName());
     }
     
     raise(value, type = "amount") {
         if (type == "amount") {
-            this.sn.add(value, "raise");
+            this.sn.add(value, SmartNumber.getFunctionName());
         }
         else if (type == "percentage") {
-            this.sn.mult((100 + value) / 100, "raise");
+            this.sn.mult((100 + value) / 100, SmartNumber.getFunctionName());
         }
     }
     
     discount(value, type = "amount") {
         if (type == "amount") {
-            this.sn.sub(value, "discount");
+            this.sn.sub(value, SmartNumber.getFunctionName());
         }
         else if (type == "percentage") {
-            this.sn.div(100 / (100 - value), "discount");
+            this.sn.div(100 / (100 - value), SmartNumber.getFunctionName());
         }
     }
     
     quantity(value) {
-        this.sn.mult(value, "quantity");
+        this.sn.mult(value, SmartNumber.getFunctionName());
     }
     
     tax(value) {
-        this.sn.mult((100 + value) / 100, "tax");
+        this.sn.mult((100 + value) / 100, SmartNumber.getFunctionName());
     }
     
     //#endregion
