@@ -43,6 +43,10 @@ class SmartPrice {
         this.sn.mult((100 + value) / 100, SmartNumber.getFunctionName());
     }
     
+    getOperationValue(name, isAlias = true) {
+        return this.sn.getOperationValue(name, isAlias);
+    }
+    
     //#endregion
     
     

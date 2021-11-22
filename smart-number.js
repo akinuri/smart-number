@@ -90,6 +90,17 @@ class SmartNumber {
         return aliases;
     }
     
+    getOperationValue(operationName, isAlias = true) {
+        this.validateAlias(operationName);
+        for (let operation of this.#operations) {
+            let target = isAlias ? operation[0] : operation[1];
+            if (target == operationName) {
+                return operation[2];
+            }
+        }
+        return null;
+    }
+    
     //#endregion
     
     
