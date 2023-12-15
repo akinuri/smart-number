@@ -1,6 +1,6 @@
 class SmartNumber {
-    
-    
+
+
     /**
      * Registry for the applied operations.
      */
@@ -8,8 +8,8 @@ class SmartNumber {
         // [operationAlias, operationName, value],
         // ["initial", "add", 1000],
     ];
-    
-    
+
+
     /**
      * Alias is the user-provided name for the operation.
      */
@@ -18,10 +18,10 @@ class SmartNumber {
             this.add(value, alias);
         }
     }
-    
-    
+
+
     // #region ==================== VALIDATION
-    
+
     #validateAlias(alias = null) {
         if (alias) {
             let aliasIsFound = false;
@@ -42,32 +42,32 @@ class SmartNumber {
             if (aliasIsFound && aliasHasChanged) {
                 throw new Error(
                     [`The alias "${alias}" is not valid.`,
-                     `It has been used before.`,
+                        `It has been used before.`,
                     ].join(" "),
                 );
             }
         }
     }
-    
+
     //#endregion
-    
-    
+
+
     // #region ==================== OPERATIONS: HELPERS
-    
+
     #registerOperation(alias, operation, value) {
         this.#validateAlias(alias);
-        this.#operations.push( [alias, operation, value] );
+        this.#operations.push([alias, operation, value]);
     }
-    
+
     getOperations() {
         return this.#operations;
     }
-    
+
     getOperationsAliases() {
-        let aliases = Array.from( new Set( this.#operations.map(entry => entry[0]) ) );
+        let aliases = Array.from(new Set(this.#operations.map(entry => entry[0])));
         return aliases;
     }
-    
+
     getOperationValue(operationName, isAlias = true) {
         this.#validateAlias(operationName);
         for (let operation of this.#operations) {
@@ -78,37 +78,37 @@ class SmartNumber {
         }
         return null;
     }
-    
+
     //#endregion
-    
-    
+
+
     // #region ==================== OPERATIONS: ARITHMETIC
-    
+
     add(value, alias = null) {
         this.#registerOperation(alias, "add", value);
     }
-    
+
     sub(value, alias = null) {
         this.#registerOperation(alias, "sub", value);
     }
-    
+
     mult(value, alias = null) {
         this.#registerOperation(alias, "mult", value);
     }
-    
+
     div(value, alias = null) {
         this.#registerOperation(alias, "div", value);
     }
-    
+
     //#endregion
-    
-    
+
+
     // #region ==================== RESULT
-    
+
     reset() {
         this.#operations = [];
     }
-    
+
     getResult() {
         let requestedAliases = Array.from(arguments);
         let allAliases = this.getOperationsAliases();
@@ -130,15 +130,15 @@ class SmartNumber {
         requestedOperations.forEach(op => {
             let [, opName, opValue] = op;
             switch (opName) {
-                case "add":  result += opValue; break;
-                case "sub":  result -= opValue; break;
+                case "add": result += opValue; break;
+                case "sub": result -= opValue; break;
                 case "mult": result *= opValue; break;
-                case "div":  result /= opValue; break;
+                case "div": result /= opValue; break;
             }
         });
         return result;
     }
-    
+
     /**
      * Allows us to calculate the missing/unknown values (back in time).
      */
@@ -154,20 +154,20 @@ class SmartNumber {
                 break;
             } else {
                 switch (opName) {
-                    case "add":  calcResult -= opValue; break;
-                    case "sub":  calcResult += opValue; break;
+                    case "add": calcResult -= opValue; break;
+                    case "sub": calcResult += opValue; break;
                     case "mult": calcResult /= opValue; break;
-                    case "div":  calcResult *= opValue; break;
+                    case "div": calcResult *= opValue; break;
                 }
             }
         }
     }
-    
+
     //#endregion
-    
-    
+
+
     // #region ==================== CHANGE
-    
+
     /**
      * Returns the change the last operation brings/causes.
      */
@@ -192,7 +192,7 @@ class SmartNumber {
         let change = max - min;
         return change;
     }
-    
+
     /**
      * Returns the first add or sub operation.
      */
@@ -201,8 +201,8 @@ class SmartNumber {
         let amount = op[2] ?? 0;
         return amount;
     }
-    
+
     //#endregion
-    
-    
+
+
 }
