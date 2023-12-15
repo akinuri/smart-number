@@ -14,34 +14,39 @@ class SmartPrice {
     // #region ==================== OPERATIONS
     
     unit(value) {
-        this.sn.add(value, SmartNumber.getFunctionName());
+        this.sn.add(value, "unit");
     }
     
     raise(value, type = "amount") {
         if (type == "amount") {
-            this.sn.add(value, SmartNumber.getFunctionName());
+            this.sn.add(value, "raise");
         }
         else if (type == "percentage") {
-            this.sn.mult((100 + value) / 100, SmartNumber.getFunctionName());
+            this.sn.mult((100 + value) / 100, "raise");
         }
     }
     
     discount(value, type = "amount") {
         if (type == "amount") {
-            this.sn.sub(value, SmartNumber.getFunctionName());
+            this.sn.sub(value, "discount");
         }
         else if (type == "percentage") {
-            this.sn.div(100 / (100 - value), SmartNumber.getFunctionName());
+            this.sn.div(100 / (100 - value), "discount");
         }
     }
     
     quantity(value) {
-        this.sn.mult(value, SmartNumber.getFunctionName());
+        this.sn.mult(value, "quantity");
     }
     
     tax(value) {
-        this.sn.mult((100 + value) / 100, SmartNumber.getFunctionName());
+        this.sn.mult((100 + value) / 100, "tax");
     }
+    
+    //#endregion
+    
+    
+    // #region ==================== OPERATIONS: HELPERS
     
     getOperationValue(name, isAlias = true) {
         return this.sn.getOperationValue(name, isAlias);

@@ -52,33 +52,11 @@ class SmartNumber {
     //#endregion
     
     
-    // #region ==================== OPERATIONS
+    // #region ==================== OPERATIONS: HELPERS
     
     #registerOperation(alias, operation, value) {
         this.#validateAlias(alias);
         this.#operations.push( [alias, operation, value] );
-    }
-    
-    static getFunctionName() {
-        let stack = new Error().stack.split(/\n/);
-        let callerMethod = stack[2].match(/at (?:\w+\.)*?([^.]+) \(/)[1] ?? null;
-        return callerMethod;
-    }
-    
-    add(value, alias = null) {
-        this.#registerOperation(alias, SmartNumber.getFunctionName(), value);
-    }
-    
-    sub(value, alias = null) {
-        this.#registerOperation(alias, SmartNumber.getFunctionName(), value);
-    }
-    
-    mult(value, alias = null) {
-        this.#registerOperation(alias, SmartNumber.getFunctionName(), value);
-    }
-    
-    div(value, alias = null) {
-        this.#registerOperation(alias, SmartNumber.getFunctionName(), value);
     }
     
     getOperations() {
@@ -91,7 +69,7 @@ class SmartNumber {
     }
     
     getOperationValue(operationName, isAlias = true) {
-        this.validateAlias(operationName);
+        this.#validateAlias(operationName);
         for (let operation of this.#operations) {
             let target = isAlias ? operation[0] : operation[1];
             if (target == operationName) {
@@ -99,6 +77,27 @@ class SmartNumber {
             }
         }
         return null;
+    }
+    
+    //#endregion
+    
+    
+    // #region ==================== OPERATIONS: ARITHMETIC
+    
+    add(value, alias = null) {
+        this.#registerOperation(alias, "add", value);
+    }
+    
+    sub(value, alias = null) {
+        this.#registerOperation(alias, "sub", value);
+    }
+    
+    mult(value, alias = null) {
+        this.#registerOperation(alias, "mult", value);
+    }
+    
+    div(value, alias = null) {
+        this.#registerOperation(alias, "div", value);
     }
     
     //#endregion
