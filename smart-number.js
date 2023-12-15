@@ -11,7 +11,7 @@ class SmartNumber {
 
 
     /**
-     * Alias is the user-provided name for the operation.
+     * Alias is the user-provided name for an operation.
      */
     constructor(value = null, alias = "initial") {
         if (value) {
@@ -23,6 +23,10 @@ class SmartNumber {
     // #region ==================== VALIDATION
 
     #validateAlias(alias = null) {
+        // an alias can be used only once
+        // same alias can be used multiple times if they are consecutive
+        // consecutive aliases are counted as one
+        // this let's us to group multiple operations under a single alias
         if (alias) {
             let aliasIsFound = false;
             let aliasHasChanged = false;
@@ -40,11 +44,10 @@ class SmartNumber {
                 }
             }
             if (aliasIsFound && aliasHasChanged) {
-                throw new Error(
-                    [`The alias "${alias}" is not valid.`,
-                        `It has been used before.`,
-                    ].join(" "),
-                );
+                throw new Error([
+                    `The alias "${alias}" is not valid.`,
+                    `It has been used before.`,
+                ].join(" "));
             }
         }
     }
