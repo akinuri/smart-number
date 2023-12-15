@@ -106,6 +106,10 @@ class SmartNumber {
     
     // #region ==================== RESULT
     
+    reset() {
+        this.#operations = [];
+    }
+    
     getResult() {
         let requestedAliases = Array.from(arguments);
         let allAliases = this.getOperationsAliases();

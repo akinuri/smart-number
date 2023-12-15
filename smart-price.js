@@ -52,6 +52,10 @@ class SmartPrice {
     
     // #region ==================== RESULT
     
+    reset() {
+        this.sn.reset();
+    }
+    
     setResult(value) {
         this.sn.setResult(value);
     }
