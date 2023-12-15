@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Smart Number & Smart Price</title>
+</head>
+<body>
+
+<script src="../smart-number.js"></script>
+<script src="../smart-price.js"></script>
+<script>
+    
+    sp = new SmartPrice();
+    
+    // simple
+    sp.unit(1250);
+    sp.discount(10, "percentage");
+    sp.tax(18);
+    console.table(
+        sp.sn.getOperations().concat([
+            ["total", null, sp.getTotal()] // 1327.5
+        ])
+    );
+    
+    // raise the starting/unit price
+    sp.reset();
+    sp.unit(1250);
+    sp.raise(20, "percentage");
+    sp.discount(10, "percentage");
+    sp.tax(18);
+    console.table(
+        sp.sn.getOperations().concat([
+            ["total", null, sp.getTotal()] // 1593
+        ])
+    );
+    
+    // unknown starting/unit value; calc forward
+    sp.reset();
+    sp.unit(null);
+    sp.discount(10, "percentage");
+    sp.setResult(1500);
+    sp.tax(18);
+    console.table(
+        sp.sn.getOperations().concat([
+            ["total", null, sp.getTotal()] // 1770
+        ])
+    );
+    
+    // unknown starting/unit value; calc backward
+    sp.reset();
+    sp.unit(null);
+    sp.raise(20, "percentage");
+    sp.discount(10, "percentage");
+    sp.tax(18);
+    sp.quantity(2);
+    sp.setResult(2400);
+    console.table(
+        sp.sn.getOperations().concat([
+            ["unit", null, sp.getResult("unit")], // 941.6195
+        ])
+    );
+    
+</script>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Smart Number</title>
+</head>
+<body>
+
+<script src="../smart-number.js"></script>
+<script>
+    
+    sn = new SmartNumber();
+    
+    // simple
+    sn.add(1250, "add");
+    sn.sub(100, "sub");
+    sn.mult(1.2, "mult");
+    console.table(
+        sn.getOperations().concat([
+            ["total", null, sn.getResult()] // 1380
+        ])
+    );
+    
+    // get the result of arbitrarily picked operations
+    [
+        ["add"],
+        ["sub"],
+        ["mult"],
+        ["add", "sub"],
+        ["add", "mult"],
+        ["sub", "mult"],
+        ["add", "sub", "mult"],
+    ].forEach(aliases => {
+        console.log([
+            aliases.join(", "),
+            sn.getResult(...aliases),
+        ]);
+    });
+    
+    // unknown starting/unit value; calc backward
+    sn.reset();
+    sn.add(null, "initial");
+    sn.sub(100);
+    sn.mult(1.2);
+    sn.setResult(1380);
+    console.table(
+        sn.getOperations().concat([
+            ["initial", null, sn.getResult("initial")] // 1250
+        ])
+    );
+    
+</script>
+
+</body>
+</html>
