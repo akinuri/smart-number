@@ -50,30 +50,30 @@
 
     <template id="line-item-template">
         <tr>
-            <td class="row-index"></td>
-            <td>
+            <td class="col-index"></td>
+            <td class="col-name">
                 <input class="px-1 border" type="text" placeholder="product">
             </td>
-            <td>
+            <td class="col-unit">
                 <input class="px-1 border w-24" type="text" placeholder="piece">
             </td>
-            <td>
+            <td class="col-quantity">
                 <input class="px-1 border w-16" type="number" placeholder="1" min="0">
             </td>
-            <td>
+            <td class="col-unit-price">
                 <input class="px-1 border w-36" type="number" placeholder="100" min="0">
             </td>
-            <td>
+            <td class="col-discount">
                 <select class="px-1 border">
-                    <option>%</option>
-                    <option>$</option>
+                    <option value="percentage">%</option>
+                    <option value="amount">$</option>
                 </select>
                 <input class="px-1 border w-32" type="number" placeholder="100">
             </td>
-            <td>
+            <td class="col-tax">
                 % <input class="px-1 border w-16" type="number" placeholder="20" list="tax-rates">
             </td>
-            <td>
+            <td class="col-total">
                 <input class="px-1 border w-36" type="number" placeholder="100">
             </td>
             <td>
@@ -97,6 +97,7 @@
     <script src="../../src/smart-number.js"></script>
     <script src="../../src/smart-price.js"></script>
     <script src="line-items.js"></script>
+    <script src="line-item.js"></script>
     <script>
         let lineItemsBody = document.querySelector("#line-items-table tbody");
         let lineItemsRowTemplate = document.querySelector("#line-item-template");

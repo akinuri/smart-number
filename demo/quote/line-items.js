@@ -6,21 +6,22 @@ class LineItems {
     }
 
     addLine() {
-        let row = this.buildLineItemRow();
-        this.prepRow(row);
-        this.tbody.append(row);
+        let item = this.buildLineItem();
+        this.prepItem(item);
+        this.tbody.append(item.row);
     }
 
-    buildLineItemRow() {
-        return this.rowTemplate.content.children[0].cloneNode(true);
+    buildLineItem() {
+        let row = this.rowTemplate.content.children[0].cloneNode(true);
+        let item = new LineItem(row);
+        return item;
     }
 
-    prepRow(row) {
-        let count = this.getRowCount() + 1;
-        row.querySelector(".row-index").textContent = count;
+    prepItem(item) {
+        item.setIndex(this.getItemCount() + 1);
     }
 
-    getRowCount() {
+    getItemCount() {
         return this.tbody.children.length;
     }
 
@@ -31,7 +32,7 @@ class LineItems {
 
     reindexLines() {
         Array.from(this.tbody.children).forEach((row, index) => {
-            row.querySelector(".row-index").textContent = index + 1;
+            row.lineItem.setIndex(index + 1);
         });
     }
 
