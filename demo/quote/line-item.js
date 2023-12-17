@@ -1,5 +1,6 @@
 class LineItem {
 
+    row = null;
     fields = {
         name: null,
         unit: null,
@@ -33,10 +34,6 @@ class LineItem {
             taxRate: this.row.querySelector(".col-tax input"),
             total: this.row.querySelector(".col-total input"),
         };
-    }
-
-    setIndex(index) {
-        this.row.querySelector(".col-index").textContent = index;
     }
 
     addEventListeners() {
@@ -104,6 +101,10 @@ class LineItem {
             total: parseFloat(this.fields.total.value) || 0,
         };
         return result;
+    }
+
+    setIndex(index) {
+        this.row.querySelector(".col-index").textContent = index;
     }
 
 }

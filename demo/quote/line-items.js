@@ -1,5 +1,8 @@
 class LineItems {
 
+    tbody = null;
+    rowTemplate = null;
+
     constructor(tbody, rowTemplate) {
         this.tbody = tbody;
         this.rowTemplate = rowTemplate;
