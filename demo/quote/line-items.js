@@ -41,5 +41,11 @@ class LineItems {
             row.lineItem.setIndex(index + 1);
         });
     }
-
+    
+    getItems() {
+        return Array.from(this.tbody.children).map(row => {
+            return row.lineItem;
+        });
+    }
+    
 }

@@ -63,7 +63,7 @@
                     <tbody>
                         <tr>
                             <th>Subtotal</th>
-                            <td>0</td>
+                            <td class="subtotal-value-cell">0</td>
                         </tr>
                         <tr>
                             <td colspan="2"><hr></td>
@@ -187,6 +187,7 @@
     <script src="event-bus.js"></script>
     <script src="line-items.js"></script>
     <script src="line-item.js"></script>
+    <script src="totals.js"></script>
     <script>
         let eventBus = new EventBus();
         lineItems = new LineItems(
@@ -196,6 +197,11 @@
         );
         lineItems.addLine();
         lineItems.addLine();
+        let totals = new Totals(
+            document.querySelector("#totals-table"),
+            lineItems,
+            eventBus,
+        );
     </script>
 
 </body>
