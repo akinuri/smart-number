@@ -2,10 +2,12 @@ class LineItems {
 
     tbody = null;
     rowTemplate = null;
+    eventBus = null;
 
-    constructor(tbody, rowTemplate) {
+    constructor(tbody, rowTemplate, eventBus) {
         this.tbody = tbody;
         this.rowTemplate = rowTemplate;
+        this.eventBus = eventBus;
     }
 
     addLine() {
@@ -16,7 +18,7 @@ class LineItems {
 
     buildLineItem() {
         let row = this.rowTemplate.content.children[0].cloneNode(true);
-        let item = new LineItem(row);
+        let item = new LineItem(row, this.eventBus);
         return item;
     }
 
@@ -30,6 +32,7 @@ class LineItems {
 
     removeLine(row) {
         row.remove();
+        this.eventBus.dispatch("LineItemRemoved");
         this.reindexLines();
     }
 

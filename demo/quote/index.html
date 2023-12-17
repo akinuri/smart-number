@@ -184,12 +184,15 @@
 
     <script src="../../src/smart-number.js"></script>
     <script src="../../src/smart-price.js"></script>
+    <script src="event-bus.js"></script>
     <script src="line-items.js"></script>
     <script src="line-item.js"></script>
     <script>
+        let eventBus = new EventBus();
         lineItems = new LineItems(
             document.querySelector("#line-items-table tbody"),
             document.querySelector("#line-item-template"),
+            eventBus,
         );
         lineItems.addLine();
         lineItems.addLine();

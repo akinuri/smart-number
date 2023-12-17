@@ -1,6 +1,7 @@
 class LineItem {
 
     row = null;
+    eventBus = null;
     fields = {
         name: null,
         unit: null,
@@ -14,8 +15,9 @@ class LineItem {
         total: null,
     };
 
-    constructor(row) {
+    constructor(row, eventBus) {
         this.row = row;
+        this.eventBus = eventBus;
         this.row.lineItem = this;
         this.findFields();
         this.addEventListeners();
@@ -48,6 +50,7 @@ class LineItem {
         ].forEach(input => {
             input.addEventListener("input", () => {
                 lineItem.printTotal(input);
+                lineItem.eventBus.dispatch("LineItemChanged");
             });
         });
     }
